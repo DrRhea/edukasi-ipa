@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPA Kelas VII - Menu Utama</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
       body { font-family: 'Poppins', sans-serif; }
+      h1, h2, h3, h4, h5, h6 { font-family: 'Baloo 2', cursive; }
+      .menu-card-title { font-family: 'Baloo 2', cursive; }
     </style>
 </head>
 <body class="min-h-screen" style="background: linear-gradient(135deg, #181c2f 0%, #2d225a 60%, #4b2067 100%); position: relative; overflow-x: hidden; overflow-y: auto;">
@@ -35,7 +37,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                             </svg>
                         </div>
-                        <h2 class="text-xl font-semibold text-blue-800 group-hover:text-blue-600 transition-colors">
+                        <h2 class="text-xl font-semibold text-blue-800 group-hover:text-blue-600 transition-colors menu-card-title">
                             Bahan Ajar
                         </h2>
                     </div>
@@ -51,7 +53,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                             </svg>
                         </div>
-                        <h2 class="text-xl font-semibold text-green-800 group-hover:text-green-600 transition-colors">
+                        <h2 class="text-xl font-semibold text-green-800 group-hover:text-green-600 transition-colors menu-card-title">
                             Media Pembelajaran
                         </h2>
                     </div>
@@ -67,27 +69,11 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
                             </svg>
                         </div>
-                        <h2 class="text-xl font-semibold text-yellow-800 group-hover:text-yellow-600 transition-colors">
+                        <h2 class="text-xl font-semibold text-yellow-800 group-hover:text-yellow-600 transition-colors menu-card-title">
                             Latihan
                         </h2>
                     </div>
                     <p class="text-yellow-700">Soal-soal latihan untuk menguji pemahaman materi</p>
-                </a>
-
-                <!-- Evaluasi -->
-                <a href="evaluasi.html" 
-                   class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 p-6 border border-gray-100 animate-menu-card">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-red-200 transition-colors">
-                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                        <h2 class="text-xl font-semibold text-red-800 group-hover:text-red-600 transition-colors">
-                            Evaluasi
-                        </h2>
-                    </div>
-                    <p class="text-red-700">Ujian akhir untuk mengukur tingkat pemahaman</p>
                 </a>
             </div>
         </main>
@@ -106,6 +92,7 @@
         <!-- Footer -->
         <footer class="text-center mt-12 text-white animate-menu-footer">
             <p>&copy; 2024 IPA Kelas VII. Platform Pembelajaran Interaktif.</p>
+            <p class="mt-1 text-white/80">Pengembang Nor Lisda Arianti</p>
         </footer>
     </div>
     <script>
