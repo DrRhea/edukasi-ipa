@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPA Kelas VII - Evaluasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      body { font-family: 'Poppins', sans-serif; }
+      html, body { min-height: 100%; }
+      .glass {
+        background: rgba(30, 34, 60, 0.45);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 1.25rem;
+        border: 1.5px solid rgba(255,255,255,0.18);
+      }
+      .glass-light {
+        background: rgba(255,255,255,0.08);
+        box-shadow: 0 4px 24px 0 rgba(31, 38, 135, 0.10);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 1.25rem;
+        border: 1.5px solid rgba(255,255,255,0.12);
+      }
+    </style>
+</head>
+<body class="min-h-screen" style="background: linear-gradient(135deg, #181c2f 0%, #2d225a 60%, #4b2067 100%); position: relative; overflow-x: hidden;">
+    <canvas id="starfield" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:1; pointer-events:none;"></canvas>
+    <div class="container mx-auto px-4 py-8" style="position: relative; z-index: 2;">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">
+                Evaluasi
+            </h1>
+            <p class="text-lg text-white/80">Ujian akhir untuk mengukur tingkat pemahaman</p>
+        </header>
+        <!-- Main Content -->
+        <main class="max-w-4xl mx-auto" x-data="{
+    showModal: false,
+    currentExam: '',
+    soalUTS: [
+        {
+            pertanyaan: 'Manakah yang termasuk besaran pokok?',
+            opsi: ['Panjang', 'Luas', 'Volume', 'Kecepatan'],
+            benar: 0
+        },
+        {
+            pertanyaan: 'Alat untuk mengukur waktu adalah...',
+            opsi: ['Termometer', 'Stopwatch', 'Neraca', 'Penggaris'],
+            benar: 1
+        }
+    ],
+    soalUAS: [
+        {
+            pertanyaan: 'Perubahan wujud dari cair ke gas disebut...',
+            opsi: ['Mencair', 'Menguap', 'Membeku', 'Mengembun'],
+            benar: 1
+        },
+        {
+            pertanyaan: 'Alat untuk mengukur suhu adalah...',
+            opsi: ['Termometer', 'Barometer', 'Higrometer', 'Anemometer'],
+            benar: 0
+        }
+    ],
+    jawaban: [],
+    selesai: false,
+    cekJawaban() {
+        this.selesai = true;
+    },
+    mulaiUjian(exam) {
+        this.currentExam = exam;
+        this.showModal = true;
+        this.jawaban = [];
+        this.selesai = false;
+    },
+    resetUjian() {
+        this.showModal = false;
+        this.currentExam = '';
+        this.jawaban = [];
+        this.selesai = false;
+    }
+}">
+            <!-- Evaluasi Interaktif Sederhana -->
+            <div class="glass p-6 mb-8" x-data="{
+                selected: null,
+                answered: false,
+                correct: 0,
+                options: [
+                    { text: 'Es mencair', correct: true },
+                    { text: 'Pembakaran kayu', correct: false },
+                    { text: 'Besi berkarat', correct: false },
+                    { text: 'Fotosintesis', correct: false }
+                ],
+                check(jawaban) {
+                    this.selected = jawaban;
+                    this.answered = true;
+                    this.correct = this.options[jawaban].correct ? 1 : 0;
+                }
+            }">
+                <h2 class="text-xl font-semibold text-white mb-4">Evaluasi Cepat: Pilihan Ganda</h2>
+                <p class="mb-4 text-white/80">1. Berikut ini yang merupakan contoh perubahan fisika adalah...</p>
+                <div class="space-y-2 mb-4">
+                    <template x-for="(option, idx) in options" :key="idx">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" :value="idx" x-model="selected" :disabled="answered" class="mr-2">
+                            <span class="text-white" x-text="option.text"></span>
+                        </label>
+                    </template>
+                </div>
+                <button class="mt-2 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-50" @click="check(selected)" :disabled="answered || selected === null">
+                    Cek Jawaban
+                </button>
+                <template x-if="answered">
+                    <div class="mt-4">
+                        <template x-if="correct">
+                            <div class="text-green-600 font-semibold">Jawaban Anda benar! 🎉</div>
+                        </template>
+                        <template x-if="!correct">
+                            <div class="text-red-600 font-semibold">Jawaban Anda salah. Coba lagi!</div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Modal Ujian (UTS/UAS) -->
+            <div x-show="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40" style="display: none;">
+                <div class="glass-light p-8 w-full max-w-lg relative">
+                    <button @click="resetUjian()" class="absolute top-2 right-2 text-white/60 hover:text-white text-2xl">&times;</button>
+                    <h2 class="text-xl font-bold mb-4 text-white" x-text="currentExam === 'UTS' ? 'Ujian Tengah Semester' : 'Ujian Akhir Semester'"></h2>
+                    <template x-for="(soal, idx) in currentExam === 'UTS' ? soalUTS : soalUAS" :key="idx">
+                        <div class="mb-6">
+                            <p class="font-medium text-white/80 mb-2" x-text="(idx+1) + '. ' + soal.pertanyaan"></p>
+                            <div class="space-y-2">
+                                <template x-for="(opsi, oidx) in soal.opsi" :key="oidx">
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" :name="'soalExam'+idx" :value="oidx" x-model.number="jawaban[idx]" :disabled="selesai" class="mr-2">
+                                        <span x-text="opsi"></span>
+                                    </label>
+                                </template>
+                            </div>
+                            <template x-if="selesai">
+                                <div class="mt-2">
+                                    <span x-show="jawaban[idx] === soal.benar" class="text-green-600 font-semibold">Benar</span>
+                                    <span x-show="jawaban[idx] !== soal.benar" class="text-red-600 font-semibold">Salah</span>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                    <button class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-50" @click="cekJawaban()" :disabled="selesai || jawaban.length !== (currentExam === 'UTS' ? soalUTS.length : soalUAS.length)">
+                        Cek Jawaban
+                    </button>
+                    <template x-if="selesai">
+                        <div class="mt-4 text-center">
+                            <div class="text-lg font-bold text-indigo-700">Skor: <span x-text="jawaban.filter((j,idx)=>(currentExam==='UTS'?j===soalUTS[idx].benar:j===soalUAS[idx].benar)).length"></span> / <span x-text="currentExam==='UTS'?soalUTS.length:soalUAS.length"></span></div>
+                            <button class="mt-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors" @click="resetUjian()">Tutup</button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="glass p-8 mb-8">
+                <div class="text-center mb-8">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-white/10 rounded-full flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-semibold text-white mb-4">
+                        Ujian Akhir Semester
+                    </h2>
+                </div>
+
+                <!-- Exam Information -->
+                <!-- 
+                <div class="bg-blue-50 rounded-lg p-6 mb-8 border border-blue-200">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-4">Informasi Ujian:</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="text-blue-800">Durasi: 90 menit</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                            </svg>
+                            <span class="text-blue-800">Jumlah Soal: 50</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="text-blue-800">Nilai Minimum: 70</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="text-blue-800">Materi: Semua Bab</span>
+                        </div>
+                    </div>
+                </div>
+                -->
+
+                <!-- Exam Categories -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Ujian Tengah Semester -->
+                    <div class="border border-white/20 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center mr-4">
+                                <span class="text-white font-bold text-sm">UTS</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-white">Ujian Tengah Semester</h3>
+                        </div>
+                        <p class="text-white/80 mb-4">Ujian untuk mengukur pemahaman materi Bab 1-3.</p>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm text-white/60">
+                                <span class="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
+                                30 Soal Pilihan Ganda
+                            </div>
+                            <div class="flex items-center text-sm text-white/60">
+                                <span class="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
+                                5 Soal Essay
+                            </div>
+                            <div class="flex items-center text-sm text-white/60">
+                                <span class="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
+                                Waktu: 60 menit
+                            </div>
+                        </div>
+                        <a href="uts.html" class="w-full block bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-colors text-center">Mulai UTS</a>
+                    </div>
+
+                    <!-- Ujian Akhir Semester -->
+                    <div class="border border-white/20 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mr-4">
+                                <span class="text-white font-bold text-sm">UAS</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-white">Ujian Akhir Semester</h3>
+                        </div>
+                        <p class="text-white/80 mb-4">Ujian komprehensif untuk semua materi semester.</p>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm text-white/60">
+                                <span class="w-2 h-2 bg-red-400 rounded-full mr-2"></span>
+                                40 Soal Pilihan Ganda
+                            </div>
+                            <div class="flex items-center text-sm text-white/60">
+                                <span class="w-2 h-2 bg-red-400 rounded-full mr-2"></span>
+                                10 Soal Essay
+                            </div>
+                            <div class="flex items-center text-sm text-white/60">
+                                <span class="w-2 h-2 bg-red-400 rounded-full mr-2"></span>
+                                Waktu: 90 menit
+                            </div>
+                        </div>
+                        <a href="uas.html" class="w-full block bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors text-center">Mulai UAS</a>
+                    </div>
+                </div>
+
+                <!-- Exam Rules -->
+                <div class="bg-white/10 rounded-lg p-6 mb-8 border border-white/20">
+                    <h3 class="text-lg font-semibold text-white mb-4">Peraturan Ujian:</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-white mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                            <span class="text-white">Pastikan koneksi internet stabil sebelum memulai ujian</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-white mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                            <span class="text-white">Tidak diperbolehkan membuka tab lain atau aplikasi lain</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-white mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                            <span class="text-white">Jawaban akan otomatis tersimpan setiap 30 detik</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-white mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                            <span class="text-white">Ujian akan otomatis berakhir ketika waktu habis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Exam Question -->
+                <div class="mt-8 p-6 bg-white/10 rounded-lg border border-white/20">
+                    <h3 class="text-lg font-semibold text-white mb-4">Contoh Soal Ujian:</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white/20 p-4 rounded-lg border border-white/30">
+                            <p class="font-medium text-white mb-3">
+                                1. Berikut ini yang merupakan contoh perubahan fisika adalah...
+                            </p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="exam1" class="mr-2">
+                                    <span class="text-white/80">a) Pembakaran kayu</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="exam1" class="mr-2">
+                                    <span class="text-white/80">b) Es mencair</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="exam1" class="mr-2">
+                                    <span class="text-white/80">c) Besi berkarat</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="exam1" class="mr-2">
+                                    <span class="text-white/80">d) Fotosintesis</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coming Soon Notice -->
+                <div class="mt-8 p-4 bg-red-50 rounded-lg border border-red-200">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-red-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p class="text-red-800 font-medium">Sistem ujian online akan segera tersedia dengan fitur anti-cheating!</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Navigation Buttons -->
+        <div class="text-center space-x-4 mt-8">
+            <a href="menu.html" 
+               class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Kembali ke Menu
+            </a>
+        </div>
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-white/70">
+            <p>&copy; 2024 IPA Kelas VII. Platform Pembelajaran Interaktif.</p>
+        </footer>
+    </div>
+    <script>
+    // Starfield effect
+    function createStarfield() {
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        // Generate stars
+        const numStars = 180;
+        const stars = [];
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.2 + 0.3,
+                o: Math.random() * 0.5 + 0.5,
+                s: Math.random() * 0.5 + 0.2 // twinkle speed
+            });
+        }
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < stars.length; i++) {
+                const star = stars[i];
+                ctx.save();
+                ctx.globalAlpha = star.o + Math.sin(Date.now() * 0.001 * star.s + i) * 0.3;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+                ctx.fillStyle = '#fff';
+                ctx.shadowColor = '#fff';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.restore();
+            }
+            requestAnimationFrame(draw);
+        }
+        draw();
+    }
+    createStarfield();
+    </script>
+</body>
+</html> 

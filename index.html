@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPA Kelas VII - Halaman Awal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="min-h-screen" style="background: linear-gradient(135deg, #181c2f 0%, #2d225a 60%, #4b2067 100%); position: relative; overflow-x: hidden;">
+    <canvas id="starfield" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:1; pointer-events:none;"></canvas>
+    <div class="container mx-auto px-4 py-8" style="position: relative; z-index: 2;">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-2 mx-auto">
+                Ilmu Pengetahuan Alam
+            </h1>
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mx-auto">
+                Kelas VII
+            </h2>
+            <div class="relative flex justify-center items-center mt-6" style="height:220px;">
+                <img src="assets/images/earth.png" alt="Bumi" class="w-40 md:w-56 animate-earth mx-auto z-10" style="filter: drop-shadow(0 0 24px #fff2); position: relative;">
+                <img src="assets/images/mars.png" alt="Mars" class="absolute left-0 bottom-4 w-20 md:w-28 animate-mars" style="filter: drop-shadow(0 0 12px #fff2);">
+                <img src="assets/images/moon.png" alt="Moon" class="absolute right-0 top-2 w-16 md:w-20 animate-moon" style="filter: drop-shadow(0 0 8px #fff2);">
+                <img src="assets/images/saturnus.png" alt="Saturnus" class="absolute left-1/4 -top-8 w-24 md:w-32 animate-saturnus" style="filter: drop-shadow(0 0 16px #fff2);">
+                <img src="assets/images/voyager.png" alt="Voyager" class="absolute right-1/4 bottom-0 w-14 md:w-20 animate-voyager" style="filter: drop-shadow(0 0 8px #fff2);">
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex flex-col items-center justify-center min-h-[60vh]">
+            <div class="text-center">
+                <div class="mb-8">
+                    <div class="w-24 h-24 mx-auto mb-4 bg-indigo-100 rounded-full flex items-center justify-center animate-icon">
+                        <svg class="w-12 h-12 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <p class="text-lg text-white max-w-md mx-auto animate-description">
+                        Selamat datang di platform pembelajaran IPA Kelas VII. 
+                        Mari kita mulai perjalanan belajar yang menyenangkan!
+                    </p>
+                </div>
+                
+                <!-- Navigation Button -->
+                <div class="mt-8">
+                    <a href="menu.html" 
+                       class="inline-flex items-center px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-button">
+                        <span>Masuk</span>
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-white animate-footer">
+            <p>&copy; 2024 IPA Kelas VII. Platform Pembelajaran Interaktif.</p>
+        </footer>
+    </div>
+
+    <!-- GSAP Animations -->
+    <script>
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial state - hide all elements (kecuali judul)
+            gsap.set('.animate-icon', { opacity: 0, scale: 0.5, rotation: -180 });
+            gsap.set('.animate-description', { opacity: 0, y: 30 });
+            gsap.set('.animate-button', { opacity: 0, y: 50, scale: 0.8 });
+            gsap.set('.animate-footer', { opacity: 0, y: 20 });
+
+            // Create timeline for sequential animations
+            const tl = gsap.timeline({ ease: "power2.out" });
+
+            // Animate elements in sequence (tanpa judul)
+            tl.to('.animate-icon', { 
+                opacity: 1, 
+                scale: 1, 
+                rotation: 0, 
+                duration: 1.2,
+                ease: "elastic.out(1, 0.3)"
+            })
+            .to('.animate-description', { 
+                opacity: 1, 
+                y: 0, 
+                duration: 0.8 
+            }, "-=0.6")
+            .to('.animate-button', { 
+                opacity: 1, 
+                y: 0, 
+                scale: 1, 
+                duration: 0.8,
+                ease: "back.out(1.7)"
+            }, "-=0.4")
+            .to('.animate-footer', { 
+                opacity: 1, 
+                y: 0, 
+                duration: 0.6 
+            }, "-=0.6");
+
+            // Add floating animation to the icon
+            gsap.to('.animate-icon', {
+                y: -10,
+                duration: 2,
+                ease: "power1.inOut",
+                yoyo: true,
+                repeat: -1,
+                delay: 2
+            });
+
+            // Add subtle pulse to the button
+            gsap.to('.animate-button', {
+                scale: 1.05,
+                duration: 1.5,
+                ease: "power1.inOut",
+                yoyo: true,
+                repeat: -1,
+                delay: 3
+            });
+
+            // Add hover effect for the button
+            const button = document.querySelector('.animate-button');
+            button.addEventListener('mouseenter', function() {
+                gsap.to(this, {
+                    scale: 1.1,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+
+            button.addEventListener('mouseleave', function() {
+                gsap.to(this, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+
+            // Animasi planet mengelilingi orbit
+            gsap.to('.animate-planet1', {
+                motionPath: {
+                    path: "M40,80 Q160,10 280,80 Q160,150 40,80Z",
+                    align: "self",
+                    autoRotate: false,
+                    alignOrigin: [0.5, 0.5]
+                },
+                duration: 8,
+                repeat: -1,
+                ease: "power1.inOut"
+            });
+            gsap.to('.animate-planet2', {
+                motionPath: {
+                    path: "M60,80 Q160,30 260,80 Q160,130 60,80Z",
+                    align: "self",
+                    autoRotate: false,
+                    alignOrigin: [0.5, 0.5]
+                },
+                duration: 12,
+                repeat: -1,
+                ease: "power1.inOut"
+            });
+            // Spaceship floating and moving
+            gsap.to('.animate-ship', {
+                y: 20,
+                x: 40,
+                rotation: 10,
+                duration: 3,
+                yoyo: true,
+                repeat: -1,
+                ease: "sine.inOut"
+            });
+            // Animasi Earth.png
+            gsap.to('.animate-earth', {
+                rotation: 360,
+                repeat: -1,
+                duration: 24,
+                ease: 'linear',
+                transformOrigin: '50% 50%'
+            });
+            gsap.to('.animate-earth', {
+                y: -18,
+                duration: 3.5,
+                yoyo: true,
+                repeat: -1,
+                ease: 'sine.inOut'
+            });
+            // Animasi Mars
+            gsap.to('.animate-mars', {
+                rotation: 360,
+                repeat: -1,
+                duration: 32,
+                ease: 'linear',
+                transformOrigin: '50% 50%'
+            });
+            gsap.to('.animate-mars', {
+                y: 12,
+                duration: 4.2,
+                yoyo: true,
+                repeat: -1,
+                ease: 'sine.inOut'
+            });
+            // Animasi Moon
+            gsap.to('.animate-moon', {
+                rotation: 360,
+                repeat: -1,
+                duration: 18,
+                ease: 'linear',
+                transformOrigin: '50% 50%'
+            });
+            gsap.to('.animate-moon', {
+                y: -10,
+                duration: 3.1,
+                yoyo: true,
+                repeat: -1,
+                ease: 'sine.inOut'
+            });
+            // Animasi Saturnus
+            gsap.to('.animate-saturnus', {
+                rotation: 360,
+                repeat: -1,
+                duration: 40,
+                ease: 'linear',
+                transformOrigin: '50% 50%'
+            });
+            gsap.to('.animate-saturnus', {
+                y: 16,
+                duration: 5.2,
+                yoyo: true,
+                repeat: -1,
+                ease: 'sine.inOut'
+            });
+            // Animasi Voyager
+            gsap.to('.animate-voyager', {
+                rotation: 10,
+                repeat: -1,
+                yoyo: true,
+                duration: 2.5,
+                ease: 'sine.inOut',
+                transformOrigin: '50% 50%'
+            });
+            gsap.to('.animate-voyager', {
+                y: -8,
+                duration: 2.7,
+                yoyo: true,
+                repeat: -1,
+                ease: 'sine.inOut'
+            });
+        });
+    </script>
+    <script>
+    // Starfield effect
+    function createStarfield() {
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        // Generate stars
+        const numStars = 180;
+        const stars = [];
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.2 + 0.3,
+                o: Math.random() * 0.5 + 0.5,
+                s: Math.random() * 0.5 + 0.2 // twinkle speed
+            });
+        }
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < stars.length; i++) {
+                const star = stars[i];
+                ctx.save();
+                ctx.globalAlpha = star.o + Math.sin(Date.now() * 0.001 * star.s + i) * 0.3;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+                ctx.fillStyle = '#fff';
+                ctx.shadowColor = '#fff';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.restore();
+            }
+            requestAnimationFrame(draw);
+        }
+        draw();
+    }
+    createStarfield();
+    </script>
+</body>
+</html> 

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPA Kelas VII - Bahan Ajar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="min-h-screen" style="background: linear-gradient(135deg, #181c2f 0%, #2d225a 60%, #4b2067 100%); position: relative; overflow-x: hidden;">
+    <canvas id="starfield" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:1; pointer-events:none;"></canvas>
+    <div class="container mx-auto px-4 py-8" style="position: relative; z-index: 2;">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">
+                Bahan Ajar
+            </h1>
+            <p class="text-lg text-white">Materi pembelajaran lengkap IPA Kelas VII</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="text-center mb-8">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                        <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+                        Materi Tata Surya
+                    </h2>
+                </div>
+                <div>
+                    <h3 class='text-xl font-bold mb-2'>Jelajahi Tata Surya Kita 🌌</h3>
+                    <p class='mb-4'>Sistem ini sangat ramai! Selain <b>8 planet</b>, Tata Surya juga dihuni oleh <b>5 planet kerdil</b>, lebih dari <b>200 satelit</b>, jutaan <b>asteroid</b>, dan ribuan <b>komet</b>. Semua benda langit ini bergerak dalam jalur masing-masing yang disebut <b>orbit</b>.</p>
+                    <hr class='my-3'>
+                    <h4 class='text-lg font-semibold mt-4 mb-2'>Gerakan Planet: Rotasi dan Revolusi</h4>
+                    <ul class='list-disc ml-6 mb-4'>
+                        <li><b>Revolusi</b>: Gerakan planet mengelilingi Matahari pada orbitnya.</li>
+                        <li><b>Rotasi</b>: Gerakan planet berputar pada sumbunya sendiri.</li>
+                    </ul>
+                    <hr class='my-3'>
+                    <h4 class='text-lg font-semibold mt-4 mb-2'>Pengelompokan Planet</h4>
+                    <b>1. Berdasarkan Pembatas</b>
+                    <ul class='list-disc ml-6 mb-2'>
+                        <li><b>Planet Inferior & Superior</b>: Dengan Bumi sebagai pembatas, planet yang terletak di antara Matahari dan Bumi (<b>Merkurius</b> dan <b>Venus</b>) disebut <b>Planet Inferior</b>. Planet yang berada setelah Bumi (<b>Mars, Jupiter, Saturnus, Uranus, Neptunus</b>) disebut <b>Planet Superior</b>.</li>
+                        <li><b>Planet Dalam & Luar</b>: Dengan Sabuk Asteroid sebagai pembatas, <b>Merkurius, Venus, Bumi, dan Mars</b> disebut <b>Planet Dalam</b>. Sementara itu, <b>Jupiter, Saturnus, Uranus, dan Neptunus</b> disebut <b>Planet Luar</b>.</li>
+                    </ul>
+                    <b>2. Berdasarkan Ukuran dan Komposisi</b>
+                    <ul class='list-disc ml-6 mb-4'>
+                        <li><b>Planet Terestrial</b>: Tersusun atas batuan (<b>Merkurius, Venus, Bumi, Mars</b>).</li>
+                        <li><b>Planet Jovian (Raksasa Gas)</b>: Tersusun dari gas (<b>Jupiter, Saturnus, Uranus, Neptunus</b>).</li>
+                    </ul>
+                    <hr class='my-3'>
+                    <h4 class='text-lg font-semibold mt-4 mb-2'>Mengenal Para Planet 🪐</h4>
+                    <ul class='list-disc ml-6 mb-4'>
+                        <li><b>Merkurius</b>: Planet terkecil dan terdekat dengan Matahari. Atmosfernya sangat tipis.</li>
+                        <li><b>Venus</b>: Planet terpanas, atmosfer tebal penuh CO₂, suhu ekstrem, rotasi retrograde.</li>
+                        <li><b>Bumi</b>: Satu-satunya planet yang diketahui memiliki kehidupan.</li>
+                        <li><b>Mars</b>: "Planet Berkarat" karena permukaan kaya besi oksida (warna merah).</li>
+                        <li><b>Jupiter</b>: Planet terbesar, ukurannya lebih dari dua kali gabungan planet lain.</li>
+                        <li><b>Saturnus</b>: Dikenal dengan cincin indahnya.</li>
+                        <li><b>Uranus</b>: Berotasi menyamping.</li>
+                        <li><b>Neptunus</b>: Planet terjauh, ditemukan lewat perhitungan matematis.</li>
+                    </ul>
+                    <hr class='my-3'>
+                    <h4 class='text-lg font-semibold mt-4 mb-2'>Benda Langit Lainnya</h4>
+                    <ul class='list-disc ml-6 mb-4'>
+                        <li><b>Satelit</b>: Benda langit yang mengelilingi benda langit lain. Contoh: Bulan (satelit Bumi), Ganymede (Jupiter), Titan (Saturnus), Io (Jupiter).</li>
+                        <li><b>Planet Kerdil</b>: Pluto, Ceres, Eris, Haumea, Makemake.</li>
+                        <li><b>Asteroid</b>: Batu luar angkasa, banyak di Sabuk Asteroid antara Mars dan Jupiter.</li>
+                        <li><b>Meteoroid, Meteor, Meteorit</b>: Meteoroid = batu luar angkasa, Meteor = "bintang jatuh", Meteorit = sisa meteor yang sampai ke Bumi.</li>
+                        <li><b>Komet</b>: Sisa pembentukan Tata Surya, terdiri dari es, debu, batu, punya ekor saat dekat Matahari.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <!-- Navigation Buttons -->
+        <div class="text-center space-x-4 mt-8">
+            <a href="menu.html" 
+               class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Kembali ke Menu
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-white">
+            <p>&copy; 2024 IPA Kelas VII. Platform Pembelajaran Interaktif.</p>
+        </footer>
+    </div>
+    <script>
+    // Starfield effect
+    function createStarfield() {
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        // Generate stars
+        const numStars = 180;
+        const stars = [];
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.2 + 0.3,
+                o: Math.random() * 0.5 + 0.5,
+                s: Math.random() * 0.5 + 0.2 // twinkle speed
+            });
+        }
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < stars.length; i++) {
+                const star = stars[i];
+                ctx.save();
+                ctx.globalAlpha = star.o + Math.sin(Date.now() * 0.001 * star.s + i) * 0.3;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+                ctx.fillStyle = '#fff';
+                ctx.shadowColor = '#fff';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.restore();
+            }
+            requestAnimationFrame(draw);
+        }
+        draw();
+    }
+    createStarfield();
+    </script>
+</body>
+</html> 

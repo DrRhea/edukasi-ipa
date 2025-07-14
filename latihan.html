@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPA Kelas VII - Latihan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      body { font-family: 'Poppins', sans-serif; }
+      html, body { min-height: 100%; }
+      .glass {
+        background: rgba(30, 34, 60, 0.45);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 1.25rem;
+        border: 1.5px solid rgba(255,255,255,0.18);
+      }
+      .glass-light {
+        background: rgba(255,255,255,0.08);
+        box-shadow: 0 4px 24px 0 rgba(31, 38, 135, 0.10);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 1.25rem;
+        border: 1.5px solid rgba(255,255,255,0.12);
+      }
+    </style>
+</head>
+<body class="min-h-screen" style="background: linear-gradient(135deg, #181c2f 0%, #2d225a 60%, #4b2067 100%); position: relative; overflow-x: hidden;">
+    <canvas id="starfield" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:1; pointer-events:none;"></canvas>
+    <div class="container mx-auto px-4 py-8" style="position: relative; z-index: 2;">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">
+                Latihan
+            </h1>
+            <p class="text-lg text-white/80">Soal-soal latihan untuk menguji pemahaman materi</p>
+        </header>
+        <!-- Main Content -->
+        <main class="max-w-4xl mx-auto" x-data="{
+    showModal: false,
+    currentBab: null,
+    soalBab1: [
+        {
+            pertanyaan: 'Satuan SI untuk panjang adalah...',
+            opsi: ['Meter', 'Kilogram', 'Sekon', 'Kelvin'],
+            benar: 0
+        },
+        {
+            pertanyaan: 'Alat untuk mengukur massa adalah...',
+            opsi: ['Termometer', 'Neraca', 'Penggaris', 'Stopwatch'],
+            benar: 1
+        }
+    ],
+    jawaban: [],
+    selesai: false,
+    cekJawaban() {
+        this.selesai = true;
+    },
+    resetLatihan() {
+        this.jawaban = [];
+        this.selesai = false;
+        this.showModal = false;
+    }
+}">
+            <!-- Latihan Interaktif Sederhana -->
+            <div class="glass p-6 mb-8" x-data="{
+                selected: null,
+                answered: false,
+                correct: 0,
+                options: [
+                    { text: 'Termometer', correct: true },
+                    { text: 'Barometer', correct: false },
+                    { text: 'Hygrometer', correct: false },
+                    { text: 'Anemometer', correct: false }
+                ],
+                check(jawaban) {
+                    this.selected = jawaban;
+                    this.answered = true;
+                    this.correct = this.options[jawaban].correct ? 1 : 0;
+                }
+            }">
+                <h2 class="text-xl font-semibold text-white mb-4">Latihan Cepat: Pilihan Ganda</h2>
+                <p class="mb-4 text-white/80">1. Alat yang digunakan untuk mengukur suhu adalah...</p>
+                <div class="space-y-2 mb-4">
+                    <template x-for="(option, idx) in options" :key="idx">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" :value="idx" x-model="selected" :disabled="answered" class="mr-2">
+                            <span class="text-white" x-text="option.text"></span>
+                        </label>
+                    </template>
+                </div>
+                <button class="mt-2 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-50" @click="check(selected)" :disabled="answered || selected === null">
+                    Cek Jawaban
+                </button>
+                <template x-if="answered">
+                    <div class="mt-4">
+                        <template x-if="correct">
+                            <div class="text-green-600 font-semibold">Jawaban Anda benar! 🎉</div>
+                        </template>
+                        <template x-if="!correct">
+                            <div class="text-red-600 font-semibold">Jawaban Anda salah. Coba lagi!</div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Modal Latihan Bab 1 -->
+            <div x-show="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40" style="display: none;">
+                <div class="glass-light p-8 w-full max-w-lg relative">
+                    <button @click="resetLatihan()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+                    <h2 class="text-xl font-bold mb-4 text-white">Latihan Bab 1: Objek IPA</h2>
+                    <template x-for="(soal, idx) in soalBab1" :key="idx">
+                        <div class="mb-6">
+                            <p class="font-medium text-white/80 mb-2" x-text="(idx+1) + '. ' + soal.pertanyaan"></p>
+                            <div class="space-y-2">
+                                <template x-for="(opsi, oidx) in soal.opsi" :key="oidx">
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" :name="'soalBab1'+idx" :value="oidx" x-model.number="jawaban[idx]" :disabled="selesai" class="mr-2">
+                                        <span x-text="opsi"></span>
+                                    </label>
+                                </template>
+                            </div>
+                            <template x-if="selesai">
+                                <div class="mt-2">
+                                    <span x-show="jawaban[idx] === soal.benar" class="text-green-600 font-semibold">Benar</span>
+                                    <span x-show="jawaban[idx] !== soal.benar" class="text-red-600 font-semibold">Salah</span>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                    <button class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-50" @click="cekJawaban()" :disabled="selesai || jawaban.length !== soalBab1.length">
+                        Cek Jawaban
+                    </button>
+                    <template x-if="selesai">
+                        <div class="mt-4 text-center">
+                            <div class="text-lg font-bold text-indigo-700">Skor: <span x-text="jawaban.filter((j,idx)=>j===soalBab1[idx].benar).length"></span> / <span x-text="soalBab1.length"></span></div>
+                            <button class="mt-2 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300" @click="resetLatihan()">Tutup</button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="glass p-8 mb-8">
+                <div class="text-center mb-8">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-yellow-100 rounded-full flex items-center justify-center">
+                        <svg class="w-10 h-10 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-semibold text-white mb-4">
+                        Soal Latihan
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 gap-6 mb-8">
+                    <div class="border border-white/20 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
+                                <img src="assets/images/earth.png" alt="Bumi" class="w-10 h-10 rounded-full object-cover shadow" />
+                            </div>
+                            <h3 class="text-lg font-semibold text-white">Latihan Tata Surya</h3>
+                        </div>
+                        <p class="text-white/80 mb-4">Latihan tentang konsep, susunan, dan fenomena dalam sistem Tata Surya berdasarkan materi video interaktif.</p>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm text-white/60">
+                                <span class="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
+                                10 Soal Pilihan Ganda
+                            </div>
+                            <div class="flex items-center text-sm text-white/60">
+                                <span class="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
+                                5 Soal Essay
+                            </div>
+                            <div class="flex items-center text-sm text-white/60">
+                                <span class="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
+                                Waktu: 30 menit
+                            </div>
+                        </div>
+                        <a href="latihan-bab-1.html" class="w-full block bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-colors text-center">Mulai Latihan</a>
+                    </div>
+                </div>
+
+                <!-- Sample Question -->
+                <div class="mt-8 p-6 bg-white/10 rounded-lg border border-white/20">
+                    <h3 class="text-lg font-semibold text-white mb-4">Contoh Soal Latihan:</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white/10 p-4 rounded-lg border border-white/20">
+                            <p class="font-medium text-white mb-3">
+                                1. Alat yang digunakan untuk mengukur suhu adalah...
+                            </p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" class="mr-2">
+                                    <span class="text-white/80">a) Termometer</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" class="mr-2">
+                                    <span class="text-white/80">b) Barometer</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" class="mr-2">
+                                    <span class="text-white/80">c) Hygrometer</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" class="mr-2">
+                                    <span class="text-white/80">d) Anemometer</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coming Soon Notice -->
+                <div class="mt-8 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-yellow-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p class="text-yellow-800 font-medium">Latihan interaktif akan segera tersedia dengan sistem scoring otomatis!</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Navigation Buttons -->
+        <div class="text-center space-x-4 mt-8">
+            <a href="menu.html" 
+               class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Kembali ke Menu
+            </a>
+        </div>
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-white/70">
+            <p>&copy; 2024 IPA Kelas VII. Platform Pembelajaran Interaktif.</p>
+        </footer>
+    </div>
+    <script>
+    // Starfield effect
+    function createStarfield() {
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        // Generate stars
+        const numStars = 180;
+        const stars = [];
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.2 + 0.3,
+                o: Math.random() * 0.5 + 0.5,
+                s: Math.random() * 0.5 + 0.2 // twinkle speed
+            });
+        }
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < stars.length; i++) {
+                const star = stars[i];
+                ctx.save();
+                ctx.globalAlpha = star.o + Math.sin(Date.now() * 0.001 * star.s + i) * 0.3;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+                ctx.fillStyle = '#fff';
+                ctx.shadowColor = '#fff';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.restore();
+            }
+            requestAnimationFrame(draw);
+        }
+        draw();
+    }
+    createStarfield();
+    </script>
+</body>
+</html> 

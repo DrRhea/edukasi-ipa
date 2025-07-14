@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPA Kelas VII - Menu Utama</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="min-h-screen" style="background: linear-gradient(135deg, #181c2f 0%, #2d225a 60%, #4b2067 100%); position: relative; overflow: hidden;">
+    <canvas id="starfield" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:1; pointer-events:none;"></canvas>
+    <div class="container mx-auto px-4 py-8" style="position: relative; z-index: 2;">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2 animate-menu-title">
+                Menu Utama
+            </h1>
+            <p class="text-lg text-white animate-menu-desc">Pilih kategori pembelajaran yang ingin Anda pelajari</p>
+        </header>
+
+        <!-- Menu Cards -->
+        <main class="max-w-4xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Bahan Ajar -->
+                <a href="bahan-ajar.html" 
+                   class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 p-6 animate-menu-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-200 transition-colors">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-semibold text-blue-800 group-hover:text-blue-600 transition-colors">
+                            Bahan Ajar
+                        </h2>
+                    </div>
+                    <p class="text-blue-700">Materi pembelajaran lengkap untuk setiap topik IPA Kelas VII</p>
+                </a>
+
+                <!-- Media Pembelajaran -->
+                <a href="media-pembelajaran.html" 
+                   class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 p-6 border border-gray-100 animate-menu-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-green-200 transition-colors">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-semibold text-green-800 group-hover:text-green-600 transition-colors">
+                            Media Pembelajaran
+                        </h2>
+                    </div>
+                    <p class="text-green-700">Video, animasi, dan media interaktif untuk memahami konsep</p>
+                </a>
+
+                <!-- Latihan -->
+                <a href="latihan.html" 
+                   class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 p-6 border border-gray-100 animate-menu-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-yellow-200 transition-colors">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-semibold text-yellow-800 group-hover:text-yellow-600 transition-colors">
+                            Latihan
+                        </h2>
+                    </div>
+                    <p class="text-yellow-700">Soal-soal latihan untuk menguji pemahaman materi</p>
+                </a>
+
+                <!-- Evaluasi -->
+                <a href="evaluasi.html" 
+                   class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 p-6 border border-gray-100 animate-menu-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-red-200 transition-colors">
+                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-semibold text-red-800 group-hover:text-red-600 transition-colors">
+                            Evaluasi
+                        </h2>
+                    </div>
+                    <p class="text-red-700">Ujian akhir untuk mengukur tingkat pemahaman</p>
+                </a>
+            </div>
+        </main>
+
+        <!-- Back Button -->
+        <div class="text-center mt-8">
+            <a href="index.html" 
+               class="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-md border border-white/30 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-menu-back" style="box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Kembali ke Beranda
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-white animate-menu-footer">
+            <p>&copy; 2024 IPA Kelas VII. Platform Pembelajaran Interaktif.</p>
+        </footer>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.set('.animate-menu-title', { opacity: 0, y: -40 });
+            gsap.set('.animate-menu-desc', { opacity: 0, y: -20 });
+            gsap.set('.animate-menu-card', { opacity: 0, y: 40, scale: 0.95 });
+            gsap.set('.animate-menu-back', { opacity: 0, y: 30 });
+            gsap.set('.animate-menu-footer', { opacity: 0, y: 20 });
+
+            const tl = gsap.timeline({ ease: 'power2.out' });
+            tl.to('.animate-menu-title', { opacity: 1, y: 0, duration: 0.7 })
+              .to('.animate-menu-desc', { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
+              .to('.animate-menu-card', { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.15 }, '-=0.2')
+              .to('.animate-menu-back', { opacity: 1, y: 0, duration: 0.5 }, '-=0.2')
+              .to('.animate-menu-footer', { opacity: 1, y: 0, duration: 0.5 }, '-=0.3');
+        });
+    </script>
+    <script>
+    // Starfield effect
+    function createStarfield() {
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        // Generate stars
+        const numStars = 180;
+        const stars = [];
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.2 + 0.3,
+                o: Math.random() * 0.5 + 0.5,
+                s: Math.random() * 0.5 + 0.2 // twinkle speed
+            });
+        }
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < stars.length; i++) {
+                const star = stars[i];
+                ctx.save();
+                ctx.globalAlpha = star.o + Math.sin(Date.now() * 0.001 * star.s + i) * 0.3;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+                ctx.fillStyle = '#fff';
+                ctx.shadowColor = '#fff';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.restore();
+            }
+            requestAnimationFrame(draw);
+        }
+        draw();
+    }
+    createStarfield();
+    </script>
+</body>
+</html> 
