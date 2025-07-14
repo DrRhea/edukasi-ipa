@@ -24,12 +24,12 @@
             <h2 class="text-2xl md:text-3xl font-semibold text-white mx-auto">
                 Kelas VII
             </h2>
-            <div class="relative flex justify-center items-center mt-6" style="height:220px;">
-                <img src="assets/images/earth.png" alt="Bumi" class="w-40 md:w-56 animate-earth mx-auto z-10" style="filter: drop-shadow(0 0 24px #fff2); position: relative;">
-                <img src="assets/images/mars.png" alt="Mars" class="absolute left-0 bottom-4 w-20 md:w-28 animate-mars" style="filter: drop-shadow(0 0 12px #fff2);">
-                <img src="assets/images/moon.png" alt="Moon" class="absolute right-0 top-2 w-16 md:w-20 animate-moon" style="filter: drop-shadow(0 0 8px #fff2);">
-                <img src="assets/images/saturnus.png" alt="Saturnus" class="absolute left-1/4 -top-8 w-24 md:w-32 animate-saturnus" style="filter: drop-shadow(0 0 16px #fff2);">
-                <img src="assets/images/voyager.png" alt="Voyager" class="absolute right-1/4 bottom-0 w-14 md:w-20 animate-voyager" style="filter: drop-shadow(0 0 8px #fff2);">
+            <div id="planet-header" class="relative w-full mx-auto mt-6" style="height:240px; min-height:180px;">
+                <img src="assets/images/earth.png" alt="Bumi" id="planet-earth" class="planet-img animate-earth z-20" style="width: 180px; max-width: 38vw; left: 50%; top: 50%; transform: translate(-50%, -50%); position: absolute; filter: drop-shadow(0 0 24px #fff2);">
+                <img src="assets/images/mars.png" alt="Mars" id="planet-mars" class="planet-img animate-mars z-10" style="width: 90px; max-width: 18vw; position: absolute; filter: drop-shadow(0 0 12px #fff2);">
+                <img src="assets/images/moon.png" alt="Moon" id="planet-moon" class="planet-img animate-moon z-10" style="width: 60px; max-width: 12vw; position: absolute; filter: drop-shadow(0 0 8px #fff2);">
+                <img src="assets/images/saturnus.png" alt="Saturnus" id="planet-saturnus" class="planet-img animate-saturnus z-10" style="width: 110px; max-width: 22vw; position: absolute; filter: drop-shadow(0 0 16px #fff2);">
+                <img src="assets/images/voyager.png" alt="Voyager" id="planet-voyager" class="planet-img animate-voyager z-10" style="width: 70px; max-width: 14vw; position: absolute; filter: drop-shadow(0 0 8px #fff2);">
             </div>
         </header>
 
@@ -47,7 +47,8 @@
                         Mari kita mulai perjalanan belajar yang menyenangkan!
                     </p>
                 </div>
-                
+                <!-- Fun Fact IPA -->
+                <div id="fun-fact" class="mb-8 px-6 py-4 bg-white/10 rounded-xl border border-white/20 shadow-lg max-w-lg mx-auto text-white text-lg font-semibold animate-funfact"></div>
                 <!-- Navigation Button -->
                 <div class="mt-8">
                     <a href="menu.html" 
@@ -59,6 +60,40 @@
                     </a>
                 </div>
             </div>
+            <!-- Kenapa Belajar IPA itu Seru? -->
+            <section class="mt-16 w-full max-w-4xl mx-auto">
+                <h3 class="text-2xl md:text-3xl font-bold text-white text-center mb-8">Kenapa Belajar IPA itu Seru?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bg-white/10 rounded-2xl p-6 flex flex-col items-center shadow-lg border border-white/20 hover:scale-105 transition-transform duration-300 animate-ipa-card">
+                        <div class="w-14 h-14 mb-3 flex items-center justify-center bg-indigo-200 rounded-full">
+                            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div class="font-bold text-white text-lg text-center">Eksperimen Seru</div>
+                        <div class="text-white/80 text-sm text-center mt-2">Bisa mencoba percobaan sains di rumah atau sekolah!</div>
+                    </div>
+                    <div class="bg-white/10 rounded-2xl p-6 flex flex-col items-center shadow-lg border border-white/20 hover:scale-105 transition-transform duration-300 animate-ipa-card">
+                        <div class="w-14 h-14 mb-3 flex items-center justify-center bg-pink-200 rounded-full">
+                            <svg class="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 0V4m0 8v8"></path></svg>
+                        </div>
+                        <div class="font-bold text-white text-lg text-center">Mengenal Alam Semesta</div>
+                        <div class="text-white/80 text-sm text-center mt-2">Belajar tentang planet, bintang, dan galaksi yang menakjubkan.</div>
+                    </div>
+                    <div class="bg-white/10 rounded-2xl p-6 flex flex-col items-center shadow-lg border border-white/20 hover:scale-105 transition-transform duration-300 animate-ipa-card">
+                        <div class="w-14 h-14 mb-3 flex items-center justify-center bg-yellow-200 rounded-full">
+                            <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87M17 8V6a4 4 0 00-8 0v2a4 4 0 00-3 3.87V16a4 4 0 003 3.87V20h8v-2.13A4 4 0 0020 16V11.87A4 4 0 0017 8z"></path></svg>
+                        </div>
+                        <div class="font-bold text-white text-lg text-center">Ilmu untuk Kehidupan</div>
+                        <div class="text-white/80 text-sm text-center mt-2">IPA membantu memahami tubuh, lingkungan, dan teknologi.</div>
+                    </div>
+                    <div class="bg-white/10 rounded-2xl p-6 flex flex-col items-center shadow-lg border border-white/20 hover:scale-105 transition-transform duration-300 animate-ipa-card">
+                        <div class="w-14 h-14 mb-3 flex items-center justify-center bg-green-200 rounded-full">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20l9-5-9-5-9 5 9 5zm0-10V4m0 6v10"></path></svg>
+                        </div>
+                        <div class="font-bold text-white text-lg text-center">Bisa Jadi Ilmuwan!</div>
+                        <div class="text-white/80 text-sm text-center mt-2">Siapa tahu, kamu calon penemu atau astronot masa depan!</div>
+                    </div>
+                </div>
+            </section>
         </main>
 
         <!-- Footer -->
@@ -298,6 +333,85 @@
         draw();
     }
     createStarfield();
+    </script>
+    <!-- Tambahkan asteroid/komet SVG animasi di background -->
+    <svg class="absolute top-10 left-10 w-16 h-8 opacity-70 animate-asteroid1 pointer-events-none" viewBox="0 0 64 32" fill="none" style="z-index:1;"><ellipse cx="32" cy="16" rx="24" ry="8" fill="#b3b3b3"/><ellipse cx="40" cy="12" rx="4" ry="2" fill="#888"/><ellipse cx="24" cy="20" rx="3" ry="1.5" fill="#888"/></svg>
+    <svg class="absolute bottom-20 right-20 w-20 h-10 opacity-60 animate-asteroid2 pointer-events-none" viewBox="0 0 80 40" fill="none" style="z-index:1;"><ellipse cx="40" cy="20" rx="30" ry="10" fill="#d1cfcf"/><ellipse cx="60" cy="15" rx="5" ry="2" fill="#aaa"/><ellipse cx="30" cy="28" rx="4" ry="2" fill="#aaa"/></svg>
+    <svg class="absolute top-1/2 left-1/3 w-12 h-6 opacity-50 animate-asteroid3 pointer-events-none" viewBox="0 0 48 24" fill="none" style="z-index:1;"><ellipse cx="24" cy="12" rx="16" ry="6" fill="#e0e0e0"/><ellipse cx="32" cy="8" rx="3" ry="1.2" fill="#bbb"/><ellipse cx="16" cy="16" rx="2" ry="1" fill="#bbb"/></svg>
+    <script>
+    // Fun Fact IPA
+    const funFacts = [
+        "Tahukah kamu? Matahari adalah bintang terdekat dari Bumi!",
+        "Tubuh manusia terdiri dari sekitar 60% air.",
+        "Petir bisa menyala lebih panas dari permukaan Matahari!",
+        "Ada lebih dari 100 miliar galaksi di alam semesta.",
+        "Astronot di luar angkasa bisa tumbuh lebih tinggi karena gravitasi rendah.",
+        "Planet terbesar di tata surya adalah Jupiter.",
+        "Bulan tidak memancarkan cahaya sendiri, melainkan memantulkan cahaya Matahari.",
+        "Seekor cheetah bisa berlari hingga 110 km/jam!",
+        "Air bisa berubah wujud menjadi padat, cair, dan gas.",
+        "Pelangi terjadi karena pembiasan dan pemantulan cahaya matahari oleh tetesan air hujan."
+    ];
+    document.getElementById('fun-fact').textContent = funFacts[Math.floor(Math.random() * funFacts.length)];
+    // Asteroid/komet animasi
+        gsap.to('.animate-asteroid1', { x: 80, y: 30, rotation: 18, duration: 12, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.to('.animate-asteroid2', { x: -100, y: -40, rotation: -12, duration: 16, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.to('.animate-asteroid3', { x: 60, y: -20, rotation: 8, duration: 10, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    // Tooltip planet
+    const planetFacts = {
+        'earth': 'Bumi adalah satu-satunya planet yang diketahui memiliki kehidupan.',
+        'mars': 'Mars dijuluki planet merah karena permukaannya kaya besi oksida.',
+        'moon': 'Bulan adalah satelit alami Bumi.',
+        'saturnus': 'Saturnus terkenal dengan cincin es dan batunya.',
+        'voyager': 'Voyager adalah wahana antariksa yang menjelajah luar tata surya.'
+    };
+    ['earth','mars','moon','saturnus','voyager'].forEach(function(name) {
+        const img = document.querySelector('img[alt="'+name.charAt(0).toUpperCase()+name.slice(1)+'"]');
+        if(img) {
+            img.style.position = 'relative';
+            img.addEventListener('mouseenter', function(e) {
+                let tip = document.createElement('div');
+                tip.className = 'planet-tooltip';
+                tip.textContent = planetFacts[name];
+                tip.style.position = 'absolute';
+                tip.style.left = '50%';
+                tip.style.top = '-40px';
+                tip.style.transform = 'translateX(-50%)';
+                tip.style.background = 'rgba(30,34,60,0.95)';
+                tip.style.color = '#fff';
+                tip.style.padding = '8px 16px';
+                tip.style.borderRadius = '12px';
+                tip.style.fontSize = '0.95rem';
+                tip.style.whiteSpace = 'nowrap';
+                tip.style.boxShadow = '0 2px 12px 0 #0004';
+                tip.style.zIndex = 99;
+                img.parentNode.appendChild(tip);
+            });
+            img.addEventListener('mouseleave', function(e) {
+                const tip = img.parentNode.querySelector('.planet-tooltip');
+                if(tip) tip.remove();
+            });
+        }
+    });
+    // Randomize planet positions (except Earth is always center)
+(function() {
+    const area = document.getElementById('planet-header');
+    const planets = [
+        {id: 'planet-mars', minX: 5, maxX: 30, minY: 10, maxY: 70},
+        {id: 'planet-moon', minX: 70, maxX: 90, minY: 0, maxY: 40},
+        {id: 'planet-saturnus', minX: 10, maxX: 40, minY: 0, maxY: 30},
+        {id: 'planet-voyager', minX: 60, maxX: 85, minY: 60, maxY: 90}
+    ];
+    planets.forEach(function(p) {
+        const el = document.getElementById(p.id);
+        if(el) {
+            const left = Math.random() * (p.maxX - p.minX) + p.minX;
+            const top = Math.random() * (p.maxY - p.minY) + p.minY;
+            el.style.left = left + '%';
+            el.style.top = top + '%';
+        }
+    });
+})();
     </script>
 </body>
 </html> 
