@@ -67,48 +67,6 @@
         this.showModal = false;
     }
 }">
-            <!-- Latihan Interaktif Sederhana -->
-            <div class="glass p-6 mb-8" x-data="{
-                selected: null,
-                answered: false,
-                correct: 0,
-                options: [
-                    { text: 'Termometer', correct: true },
-                    { text: 'Barometer', correct: false },
-                    { text: 'Hygrometer', correct: false },
-                    { text: 'Anemometer', correct: false }
-                ],
-                check(jawaban) {
-                    this.selected = jawaban;
-                    this.answered = true;
-                    this.correct = this.options[jawaban].correct ? 1 : 0;
-                }
-            }">
-                <h2 class="text-xl font-semibold text-white mb-4">Latihan Cepat: Pilihan Ganda</h2>
-                <p class="mb-4 text-white/80">1. Alat yang digunakan untuk mengukur suhu adalah...</p>
-                <div class="space-y-2 mb-4">
-                    <template x-for="(option, idx) in options" :key="idx">
-                        <label class="flex items-center cursor-pointer">
-                            <input type="radio" :value="idx" x-model="selected" :disabled="answered" class="mr-2">
-                            <span class="text-white" x-text="option.text"></span>
-                        </label>
-                    </template>
-                </div>
-                <button class="mt-2 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-50" @click="check(selected)" :disabled="answered || selected === null">
-                    Cek Jawaban
-                </button>
-                <template x-if="answered">
-                    <div class="mt-4">
-                        <template x-if="correct">
-                            <div class="text-green-600 font-semibold">Jawaban Anda benar! 🎉</div>
-                        </template>
-                        <template x-if="!correct">
-                            <div class="text-red-600 font-semibold">Jawaban Anda salah. Coba lagi!</div>
-                        </template>
-                    </div>
-                </template>
-            </div>
-
             <!-- Modal Latihan Bab 1 -->
             <div x-show="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40" style="display: none;">
                 <div class="glass-light p-8 w-full max-w-lg relative">
@@ -145,71 +103,156 @@
                 </div>
             </div>
 
-            <div class="glass p-8 mb-8">
-                <div class="text-center mb-8">
-                    <div class="w-20 h-20 mx-auto mb-4 bg-yellow-100 rounded-full flex items-center justify-center">
-                        <img src="assets/icons/icon-quiz-cute.png" alt="Quiz Lucu" class="w-10 h-10 object-contain">
-                    </div>
-                    <h2 class="text-2xl font-semibold text-white mb-4">
-                        Soal Latihan
-                    </h2>
-                </div>
-                <div class="grid grid-cols-1 gap-6 mb-8">
-                    <div class="border border-white/20 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
-                                <img src="assets/images/earth.png" alt="Bumi" class="w-10 h-10 rounded-full object-cover shadow" />
-                            </div>
-                            <h3 class="text-lg font-semibold text-white">Latihan Tata Surya</h3>
-                        </div>
-                        <p class="text-white/80 mb-4">Latihan tentang konsep, susunan, dan fenomena dalam sistem Tata Surya berdasarkan materi video interaktif.</p>
-                        <div class="space-y-2 mb-4">
-                            <div class="flex items-center text-sm text-white/60">
-                                <span class="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
-                                10 Soal Pilihan Ganda
-                            </div>
-                            <div class="flex items-center text-sm text-white/60">
-                                <span class="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
-                                5 Soal Essay
-                            </div>
-                            <div class="flex items-center text-sm text-white/60">
-                                <span class="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
-                                Waktu: 30 menit
-                            </div>
-                        </div>
-                        <a href="latihan-bab-1.html" class="w-full block bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-colors text-center">Mulai Latihan</a>
-                    </div>
-                </div>
-
-                <!-- Sample Question -->
-                <div class="mt-8 p-6 bg-white/10 rounded-lg border border-white/20">
-                    <h3 class="text-lg font-semibold text-white mb-4">Contoh Soal Latihan:</h3>
-                    <div class="space-y-4">
-                        <div class="bg-white/10 p-4 rounded-lg border border-white/20">
-                            <p class="font-medium text-white mb-3">
-                                1. Alat yang digunakan untuk mengukur suhu adalah...
-                            </p>
-                            <div class="space-y-2">
-                                <label class="flex items-center">
-                                    <input type="radio" name="q1" class="mr-2">
-                                    <span class="text-white/80">a) Termometer</span>
+            <div class="glass p-8 mb-8" x-data="{
+                jawaban: Array(10).fill(null),
+                kunci: [2,2,1,1,2,1,1,2,1,2],
+                selesai: false,
+                cekSkor() { this.selesai = true; },
+                reset() { this.jawaban = Array(10).fill(null); this.selesai = false; }
+            }">
+                <h2 class="text-xl font-bold text-white mb-4">A. Pilihan Ganda</h2>
+                <p class="mb-6 text-white/80">Pilihlah jawaban yang paling tepat!</p>
+                <div class="space-y-8 mb-12">
+                    <!-- Soal 1 -->
+                    <div>
+                        <p class="text-white mb-3">1. Planet yang dikenal sebagai “planet biru” karena memiliki air dalam jumlah besar adalah ...</p>
+                        <div class="space-y-2">
+                            <template x-for="(opsi, oidx) in ['Mars','Uranus','Bumi','Venus']" :key="oidx">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" :name="'q1'" :value="oidx" x-model.number="jawaban[0]" :disabled="selesai" class="mr-2">
+                                    <span :class="selesai ? (oidx === kunci[0] ? 'text-green-400 font-bold' : (jawaban[0] === oidx ? 'text-red-400 font-bold' : 'text-white/80')) : 'text-white/80'" x-text="String.fromCharCode(97+oidx)+'. '+opsi"></span>
                                 </label>
-                                <label class="flex items-center">
-                                    <input type="radio" name="q1" class="mr-2">
-                                    <span class="text-white/80">b) Barometer</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="radio" name="q1" class="mr-2">
-                                    <span class="text-white/80">c) Hygrometer</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="radio" name="q1" class="mr-2">
-                                    <span class="text-white/80">d) Anemometer</span>
-                                </label>
-                            </div>
+                            </template>
                         </div>
                     </div>
+                    <!-- Soal 2 -->
+                    <div>
+                        <p class="text-white mb-3">2. Planet yang memiliki cincin paling jelas terlihat adalah ...</p>
+                        <div class="space-y-2">
+                            <template x-for="(opsi, oidx) in ['Jupiter','Mars','Saturnus','Uranus']" :key="oidx">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" :name="'q2'" :value="oidx" x-model.number="jawaban[1]" :disabled="selesai" class="mr-2">
+                                    <span :class="selesai ? (oidx === kunci[1] ? 'text-green-400 font-bold' : (jawaban[1] === oidx ? 'text-red-400 font-bold' : 'text-white/80')) : 'text-white/80'" x-text="String.fromCharCode(97+oidx)+'. '+opsi"></span>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+                    <!-- Soal 3 -->
+                    <div>
+                        <p class="text-white mb-3">3. Gerakan Bumi yang menyebabkan terjadinya pergantian musim adalah ...</p>
+                        <div class="space-y-2">
+                            <template x-for="(opsi, oidx) in ['Rotasi Bumi','Revolusi Bumi','Inklinasi Bumi','Orbit Bumi']" :key="oidx">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" :name="'q3'" :value="oidx" x-model.number="jawaban[2]" :disabled="selesai" class="mr-2">
+                                    <span :class="selesai ? (oidx === kunci[2] ? 'text-green-400 font-bold' : (jawaban[2] === oidx ? 'text-red-400 font-bold' : 'text-white/80')) : 'text-white/80'" x-text="String.fromCharCode(97+oidx)+'. '+opsi"></span>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+                    <!-- Soal 4 -->
+                    <div>
+                        <p class="text-white mb-3">4. Planet-planet dalam Tata Surya bergerak mengelilingi Matahari pada lintasan yang disebut ...</p>
+                        <div class="space-y-2">
+                            <template x-for="(opsi, oidx) in ['Garis edar','Orbit','Rotasi','Revolusi']" :key="oidx">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" :name="'q4'" :value="oidx" x-model.number="jawaban[3]" :disabled="selesai" class="mr-2">
+                                    <span :class="selesai ? (oidx === kunci[3] ? 'text-green-400 font-bold' : (jawaban[3] === oidx ? 'text-red-400 font-bold' : 'text-white/80')) : 'text-white/80'" x-text="String.fromCharCode(97+oidx)+'. '+opsi"></span>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+                    <!-- Soal 5 -->
+                    <div>
+                        <p class="text-white mb-3">5. Bulan membutuhkan waktu sekitar ... hari untuk sekali mengelilingi Bumi.</p>
+                        <div class="space-y-2">
+                            <template x-for="(opsi, oidx) in ['24','30','27,3','365']" :key="oidx">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" :name="'q5'" :value="oidx" x-model.number="jawaban[4]" :disabled="selesai" class="mr-2">
+                                    <span :class="selesai ? (oidx === kunci[4] ? 'text-green-400 font-bold' : (jawaban[4] === oidx ? 'text-red-400 font-bold' : 'text-white/80')) : 'text-white/80'" x-text="String.fromCharCode(97+oidx)+'. '+opsi"></span>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+                    <!-- Soal 6 -->
+                    <div>
+                        <p class="text-white mb-3">6. Gerhana Matahari terjadi ketika ...</p>
+                        <div class="space-y-2">
+                            <template x-for="(opsi, oidx) in ['Bumi berada di antara Matahari dan Bulan','Bulan berada di antara Matahari dan Bumi','Matahari berada di antara Bulan dan Bumi','Bulan berada di samping Bumi']" :key="oidx">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" :name="'q6'" :value="oidx" x-model.number="jawaban[5]" :disabled="selesai" class="mr-2">
+                                    <span :class="selesai ? (oidx === kunci[5] ? 'text-green-400 font-bold' : (jawaban[5] === oidx ? 'text-red-400 font-bold' : 'text-white/80')) : 'text-white/80'" x-text="String.fromCharCode(97+oidx)+'. '+opsi"></span>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+                    <!-- Soal 7 -->
+                    <div>
+                        <p class="text-white mb-3">7. Akibat dari rotasi Bumi adalah ...</p>
+                        <div class="space-y-2">
+                            <template x-for="(opsi, oidx) in ['Pergantian musim','Terbentuknya siang dan malam','Terjadinya gerhana','Pasang surut air laut']" :key="oidx">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" :name="'q7'" :value="oidx" x-model.number="jawaban[6]" :disabled="selesai" class="mr-2">
+                                    <span :class="selesai ? (oidx === kunci[6] ? 'text-green-400 font-bold' : (jawaban[6] === oidx ? 'text-red-400 font-bold' : 'text-white/80')) : 'text-white/80'" x-text="String.fromCharCode(97+oidx)+'. '+opsi"></span>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+                    <!-- Soal 8 -->
+                    <div>
+                        <p class="text-white mb-3">8. Planet terdekat dengan Matahari adalah ...</p>
+                        <div class="space-y-2">
+                            <template x-for="(opsi, oidx) in ['Venus','Mars','Merkurius','Bumi']" :key="oidx">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" :name="'q8'" :value="oidx" x-model.number="jawaban[7]" :disabled="selesai" class="mr-2">
+                                    <span :class="selesai ? (oidx === kunci[7] ? 'text-green-400 font-bold' : (jawaban[7] === oidx ? 'text-red-400 font-bold' : 'text-white/80')) : 'text-white/80'" x-text="String.fromCharCode(97+oidx)+'. '+opsi"></span>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+                    <!-- Soal 9 -->
+                    <div>
+                        <p class="text-white mb-3">9. Satelit alami Bumi adalah ...</p>
+                        <div class="space-y-2">
+                            <template x-for="(opsi, oidx) in ['Mars','Bulan','Pluto','Komet']" :key="oidx">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" :name="'q9'" :value="oidx" x-model.number="jawaban[8]" :disabled="selesai" class="mr-2">
+                                    <span :class="selesai ? (oidx === kunci[8] ? 'text-green-400 font-bold' : (jawaban[8] === oidx ? 'text-red-400 font-bold' : 'text-white/80')) : 'text-white/80'" x-text="String.fromCharCode(97+oidx)+'. '+opsi"></span>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+                    <!-- Soal 10 -->
+                    <div>
+                        <p class="text-white mb-3">10. Revolusi Bumi memerlukan waktu selama ...</p>
+                        <div class="space-y-2">
+                            <template x-for="(opsi, oidx) in ['30 hari','12 jam','365¼ hari','24 jam']" :key="oidx">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" :name="'q10'" :value="oidx" x-model.number="jawaban[9]" :disabled="selesai" class="mr-2">
+                                    <span :class="selesai ? (oidx === kunci[9] ? 'text-green-400 font-bold' : (jawaban[9] === oidx ? 'text-red-400 font-bold' : 'text-white/80')) : 'text-white/80'" x-text="String.fromCharCode(97+oidx)+'. '+opsi"></span>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
                 </div>
+                <div class="mt-8 flex flex-col items-center">
+                    <button class="px-6 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors mb-3 disabled:opacity-60" @click="cekSkor()" :disabled="selesai || jawaban.includes(null)">Cek Skor</button>
+                    <template x-if="selesai">
+                        <div class="text-lg font-bold text-white bg-indigo-700 px-6 py-3 rounded-xl shadow mt-2">Skor Anda: <span x-text="jawaban.filter((j,idx)=>j===kunci[idx]).length"></span> / 10</div>
+                    </template>
+                    <template x-if="selesai">
+                        <button class="mt-4 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 text-gray-800 font-semibold" @click="reset()">Ulangi Latihan</button>
+                    </template>
+                </div>
+                <h2 class="text-xl font-bold text-white mb-4 mt-12">B. Esai</h2>
+                <p class="mb-6 text-white/80">Jawablah pertanyaan berikut dengan jelas dan lengkap!</p>
+                <ol class="list-decimal ml-6 space-y-4 text-white/90">
+                    <li>Jelaskan perbedaan antara rotasi dan revolusi Bumi serta akibatnya!</li>
+                    <li>Mengapa Bulan tampak berubah-ubah bentuknya jika dilihat dari Bumi?</li>
+                    <li>Sebutkan dan jelaskan tiga lapisan utama Matahari!</li>
+                    <li>Bagaimana proses terjadinya gerhana bulan total?</li>
+                    <li>Sebutkan tiga perbedaan antara planet dalam dan planet luar!</li>
+                </ol>
+            </div>
 
                 <!-- Coming Soon Notice -->
                 <div class="mt-8 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
@@ -217,7 +260,7 @@
                         <svg class="w-5 h-5 text-yellow-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        <p class="text-yellow-800 font-medium">Latihan interaktif akan segera tersedia dengan sistem scoring otomatis!</p>
+                        <!-- <p class="text-yellow-800 font-medium">Latihan interaktif akan segera tersedia dengan sistem scoring otomatis!</p> -->
                     </div>
                 </div>
             </div>
